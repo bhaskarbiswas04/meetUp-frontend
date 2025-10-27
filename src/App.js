@@ -17,8 +17,8 @@ const router = createBrowserRouter([
         <hr />
         <div className="container">
           <EventListing />
-        <Footer />
         </div>
+        <Footer />
       </>
     ),
   },
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
         <hr />
         <div className="container">
           <EventDetails />
-        <Footer />
         </div>
+        <Footer />
       </>
     ),
   },

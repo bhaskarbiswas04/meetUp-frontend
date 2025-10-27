@@ -97,6 +97,7 @@ const EventListing = () => {
         </div>
       </div>
 
+      {/* Cards Listing */}
       <div className="container mt-5">
         {loading ? (
           <p>Loading events...</p>

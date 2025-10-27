@@ -1,7 +1,7 @@
 const Footer = () =>{
     return (
-        <div>
-            <p>&copy; Meet Up | All rights reserved.</p>
+        <div className="container py-4">
+            <p>&copy; Meet Up 2025 | All rights reserved.</p>
         </div>
     )
 }
