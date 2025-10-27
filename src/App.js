@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import Header from './components/Header';
+import Footer from "./components/Footer"
 import EventListing from './pages/EventListing';
 import EventDetails from './pages/EventDetails';
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
         <div className="container">
           <EventListing />
         </div>
+        <Footer />
       </>
     ),
   },
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
         <div className="container">
           <EventDetails />
         </div>
+        <Footer />
       </>
     ),
   },
