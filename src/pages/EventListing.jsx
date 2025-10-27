@@ -6,6 +6,8 @@ const EventListing = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [selectedType, setSelectedType] = useState("Both");
 
   const fetchEvents = async () => {
     try {
@@ -21,6 +23,7 @@ const EventListing = () => {
 
       const data = await response.json();
       setEvents(data);
+      setFilteredEvents(data);
     } catch (error) {
       setError("Error fetching events");
       console.error(error);
@@ -34,6 +37,18 @@ const EventListing = () => {
     fetchEvents();
   }, []);
 
+  //Handle dropdown filter
+  const handleFilter = (type) =>{
+    setSelectedType(type);
+
+    if(type === "Both") {
+      setFilteredEvents(events);
+    } else {
+      const filtered = events.filter((evt) => evt.eventType === type);
+      setFilteredEvents(filtered);
+    }
+  }
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center">
@@ -46,21 +61,35 @@ const EventListing = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Select Event type:
+            {selectedType === "Both"
+              ? "Select Event type:"
+              : selectedType + " Events"}
           </button>
           <ul className="dropdown-menu">
             <li>
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => handleFilter("Online")}
+              >
                 Online
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => handleFilter("Offline")}
+              >
                 Offline
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => handleFilter("Both")}
+              >
                 Both
               </a>
             </li>
@@ -75,7 +104,7 @@ const EventListing = () => {
           <p className="text-danger">{error}</p>
         ) : events.length > 0 ? (
           <div className="row g-5">
-            {events.map((event, index) => (
+            {filteredEvents.map((event, index) => (
               <div
                 className="col-md-4 d-flex justify-content-center"
                 key={index}
