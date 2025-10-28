@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const EventDetails = () => {
-  const { title } = useParams(); // ✅ title from URL
+  const { title } = useParams(); // title from URL
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
