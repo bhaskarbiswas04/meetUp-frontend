@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = ({ setSearchQuery }) => {
   const [input, setInput] = useState("");
@@ -12,14 +13,19 @@ const Header = ({ setSearchQuery }) => {
   return (
     <nav className="navbar ">
       <div className="container-fluid">
-        <a className="navbar-brand d-flex align-items-center">
+        <Link to="/" className="navbar-brand d-flex align-items-center">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZeMauffdnVPSxC6GZASCE88K0rjGssXPhnw&s"
             alt="MeetUp Logo"
             className="img-fluid"
-            style={{ height: "50px", width: "auto", objectFit: "contain" }}
+            style={{
+              height: "50px",
+              width: "auto",
+              objectFit: "contain",
+              cursor: "pointer",
+            }}
           />
-        </a>
+        </Link>
 
         <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
           <input

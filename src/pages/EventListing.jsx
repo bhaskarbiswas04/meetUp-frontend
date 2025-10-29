@@ -38,7 +38,7 @@ const EventListing = () => {
     fetchEvents();
   }, []);
 
-  // ✅ Filter by type (dropdown)
+  // Filter by type (dropdown)
   const handleFilter = (type) => {
     setSelectedType(type);
 
@@ -59,7 +59,7 @@ const EventListing = () => {
     setFilteredEvents(filtered);
   };
 
-  // ✅ Handle search (called whenever searchQuery changes)
+  // Handle search (called whenever searchQuery changes)
   useEffect(() => {
     let filtered = [...events];
 
@@ -73,7 +73,7 @@ const EventListing = () => {
       filtered = filtered.filter(
         (event) =>
           event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          event.eventType.toLowerCase().includes(searchQuery.toLowerCase())
+          event.eventTags.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -82,7 +82,7 @@ const EventListing = () => {
 
   return (
     <>
-      {/* ✅ Pass search setter to Header */}
+      {/* Pass search setter to Header */}
       <Header setSearchQuery={setSearchQuery} />
 
       <hr />
@@ -134,7 +134,7 @@ const EventListing = () => {
         </div>
       </div>
 
-      {/* ✅ Events Listing */}
+      {/* Events Listing */}
       <div className="container mt-5">
         {loading ? (
           <p>Loading events...</p>
