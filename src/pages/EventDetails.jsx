@@ -29,9 +29,7 @@ const EventDetails = () => {
 
   return (
     <>
-      <Header setSearchQuery={setSearchQuery} />
 
-      <hr />
 
       <div className="container mt-5 d-flex">
         <div style={{ flex: "1", maxWidth: "800px" }}>

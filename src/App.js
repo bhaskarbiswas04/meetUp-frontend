@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <div className="container">
+        <div className="">
           <EventListing />
         </div>
         <Footer />
@@ -24,6 +24,8 @@ const router = createBrowserRouter([
     path: "/events/:title",
     element: (
       <>
+        <Header />
+        <hr />
         <div className="container">
           <EventDetails />
         </div>
