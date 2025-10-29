@@ -1,6 +1,6 @@
-"use client";
 import { useState, useEffect } from "react";
 import EventCard from "../components/EventCard";
+import Header from "../components/Header";
 
 const EventListing = () => {
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,9 @@ const EventListing = () => {
   const [error, setError] = useState("");
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedType, setSelectedType] = useState("Both");
+  const [searchQuery, setSearchQuery] = useState("");
 
+  // ✅ Fetch events once
   const fetchEvents = async () => {
     try {
       setLoading(true);
@@ -28,32 +30,67 @@ const EventListing = () => {
       setError("Error fetching events");
       console.error(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
-  // Fetching events when component loads
   useEffect(() => {
     fetchEvents();
   }, []);
 
-  //Handle dropdown filter
-  const handleFilter = (type) =>{
+  // ✅ Filter by type (dropdown)
+  const handleFilter = (type) => {
     setSelectedType(type);
 
-    if(type === "Both") {
-      setFilteredEvents(events);
-    } else {
-      const filtered = events.filter((evt) => evt.eventType === type);
-      setFilteredEvents(filtered);
+    let filtered = [...events];
+    if (type !== "Both") {
+      filtered = filtered.filter((evt) => evt.eventType === type);
     }
-  }
+
+    // Apply current search filter too
+    if (searchQuery) {
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.eventType.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredEvents(filtered);
+  };
+
+  // ✅ Handle search (called whenever searchQuery changes)
+  useEffect(() => {
+    let filtered = [...events];
+
+    // Apply event type filter
+    if (selectedType !== "Both") {
+      filtered = filtered.filter((evt) => evt.eventType === selectedType);
+    }
+
+    // Apply search query
+    if (searchQuery) {
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          event.eventType.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredEvents(filtered);
+  }, [searchQuery, events, selectedType]);
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center">
+      {/* ✅ Pass search setter to Header */}
+      <Header setSearchQuery={setSearchQuery} />
+
+      <hr />
+
+      <div className="container d-flex justify-content-between align-items-center mt-3">
         <h1 className="fw-bold">MeetUp Events</h1>
 
+        {/* Filter Dropdown */}
         <div className="dropdown">
           <button
             className="btn btn-light dropdown-toggle"
@@ -62,8 +99,8 @@ const EventListing = () => {
             aria-expanded="false"
           >
             {selectedType === "Both"
-              ? "Select Event type:"
-              : selectedType + " Events"}
+              ? "Select Event Type"
+              : `${selectedType} Events`}
           </button>
           <ul className="dropdown-menu">
             <li>
@@ -97,13 +134,13 @@ const EventListing = () => {
         </div>
       </div>
 
-      {/* Cards Listing */}
+      {/* ✅ Events Listing */}
       <div className="container mt-5">
         {loading ? (
           <p>Loading events...</p>
         ) : error ? (
           <p className="text-danger">{error}</p>
-        ) : events.length > 0 ? (
+        ) : filteredEvents.length > 0 ? (
           <div className="row g-5">
             {filteredEvents.map((event, index) => (
               <div

@@ -55,7 +55,7 @@ const EventCard = ({ event }) => {
         {/* Event Details */}
         <div className="card-body">
           <p className="text-muted mb-1" style={{ fontSize: "0.9rem" }}>
-            {event.date} • {event.eventStartTime} IST
+            • {event.eventStartTime} IST
           </p>
           <h5 className="card-title mb-2 fw-semibold">{event.title}</h5>
         </div>

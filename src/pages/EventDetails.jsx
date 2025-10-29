@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
 
 const EventDetails = () => {
   const { title } = useParams(); // title from URL
   const [event, setEvent] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchEventByTitle = async () => {
@@ -27,6 +29,10 @@ const EventDetails = () => {
 
   return (
     <>
+      <Header setSearchQuery={setSearchQuery} />
+
+      <hr />
+
       <div className="container mt-5 d-flex">
         <div style={{ flex: "1", maxWidth: "800px" }}>
           <h2 className="fw-bold mb-3">{event.title}</h2>
